@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("<h1>Homepage - Welcome Adventure's 🌄</h1>");
-});
+const route = require("./routes/products");
 
-app.listen("3000", (req, res) => {
+app.use("/", route);
+
+app.listen("3000", () => {
   console.log("Server running on http://localhost:3000");
 });
