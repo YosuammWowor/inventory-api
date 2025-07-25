@@ -1,7 +1,11 @@
 const express = require("express");
 const route = express.Router();
 
-const { setHomepage, getData } = require("../controllers/productsController");
+const {
+  setHomepage,
+  getData,
+  getDataById,
+} = require("../controllers/productsController");
 
 route.get("/", (req, res) => {
   setHomepage(req, res);
@@ -9,6 +13,10 @@ route.get("/", (req, res) => {
 
 route.get("/products", (req, res) => {
   getData(req, res);
+});
+
+route.get("/products/:id", (req, res) => {
+  getDataById(req, res);
 });
 
 module.exports = route;
