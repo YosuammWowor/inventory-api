@@ -3,6 +3,7 @@ const {
   postData_db,
   putData_db,
   deleteData_db,
+  patchData_db,
 } = require("../model/product");
 
 const setHomepage = (req, res) => {
@@ -68,6 +69,27 @@ const deleteData = async (req, res) => {
   });
 };
 
+const patchData = async (req, res) => {
+  const { operation, amount } = req.body;
+
+  const checkOperation =
+    typeof operation === "string"
+      ? operation.toLowerCase() === "increase" ||
+        operation.toLowerCase() === "decrease"
+      : false;
+  const checkAmount = typeof amount === "number";
+
+  const message_db = await patchData_db(req.params.id, operation, amount);
+
+  res.json({
+    message:
+      message_db && checkOperation && checkAmount
+        ? "Product successfully updated📦"
+        : "Sorry, product data failed updated😔",
+    data: message_db ? message_db : "No items found...",
+  });
+};
+
 module.exports = {
   setHomepage,
   getData,
@@ -75,4 +97,5 @@ module.exports = {
   postData,
   putData,
   deleteData,
+  patchData,
 };

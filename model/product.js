@@ -1,5 +1,4 @@
 const { readFileSync, readFile, writeFileSync } = require("fs");
-const { type } = require("os");
 
 const getData_db = async () => {
   const data = await readFileSync("./data/products.json", "utf-8");
@@ -69,17 +68,49 @@ const deleteData_db = async (id) => {
     }
   }
 
-  // for (let i = 0; i < datas.length; i++) {
-  //   if (datas[i].id === id) {
-  //     const deletedData = datas[i];
+  return false;
+};
 
-  //     // datas.forEach((data, index) => )
+const patchData_db = async (id, operation, amount) => {
+  const datas = await getData_db();
+  id = parseInt(id);
 
-  //     return deletedData;
-  //   }
-  // }
+  for (let data of datas) {
+    if (data.id === id) {
+      const updatedData = data;
+
+      // Checking variabel type
+      if (typeof operation !== "string")
+        return "Something wrong with 'operation'";
+      if (typeof amount !== "number") return "Something wrong with 'amount'";
+
+      if (operation.toLowerCase() === "increase") {
+        // operation increase stock
+        datas.forEach((data) => {
+          if (data.id === id) data.stock += amount;
+        });
+      } else if (operation.toLocaleLowerCase() === "decrease") {
+        // operation decrase stock
+        datas.forEach((data) => {
+          if (data.id === id) data.stock -= amount;
+        });
+      } else {
+        return "Please choose between 'increase' or 'decrease'";
+      }
+
+      writeFileSync("./data/products.json", JSON.stringify(datas), "utf-8");
+
+      return updatedData;
+    }
+  }
 
   return false;
 };
 
-module.exports = { getData_db, postData_db, putData_db, deleteData_db };
+module.exports = {
+  getData_db,
+  postData_db,
+  putData_db,
+  deleteData_db,
+  patchData_db,
+};

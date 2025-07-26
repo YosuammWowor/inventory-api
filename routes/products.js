@@ -8,6 +8,7 @@ const {
   postData,
   putData,
   deleteData,
+  patchData,
 } = require("../controllers/productsController");
 
 route.get("/", (req, res) => {
@@ -32,6 +33,10 @@ route.put("/products/:id", (req, res) => {
 
 route.delete("/products/:id", (req, res) => {
   deleteData(req, res);
+});
+
+route.patch("/products/:id/stock", (req, res) => {
+  patchData(req, res);
 });
 
 module.exports = route;
