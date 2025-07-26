@@ -1,4 +1,9 @@
-const { getData_db, postData_db, putData_db } = require("../model/product");
+const {
+  getData_db,
+  postData_db,
+  putData_db,
+  deleteData_db,
+} = require("../model/product");
 
 const setHomepage = (req, res) => {
   res.send("<h1>Homepage - Welcome Adventure's 🌄</h1>");
@@ -50,4 +55,24 @@ const putData = async (req, res) => {
   });
 };
 
-module.exports = { setHomepage, getData, getDataById, postData, putData };
+const deleteData = async (req, res) => {
+  const { id } = req.params;
+
+  const message_db = await deleteData_db(id);
+
+  res.json({
+    message: message_db
+      ? "Product successfully deleted!🙌"
+      : "Sorry, product failed deleted😔",
+    items: message_db ? message_db : "No items found...",
+  });
+};
+
+module.exports = {
+  setHomepage,
+  getData,
+  getDataById,
+  postData,
+  putData,
+  deleteData,
+};

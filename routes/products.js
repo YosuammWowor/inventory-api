@@ -7,6 +7,7 @@ const {
   getDataById,
   postData,
   putData,
+  deleteData,
 } = require("../controllers/productsController");
 
 route.get("/", (req, res) => {
@@ -27,6 +28,10 @@ route.post("/products", (req, res) => {
 
 route.put("/products/:id", (req, res) => {
   putData(req, res);
+});
+
+route.delete("/products/:id", (req, res) => {
+  deleteData(req, res);
 });
 
 module.exports = route;

@@ -27,7 +27,6 @@ const postData_db = async (name, stock, price) => {
 
 const putData_db = async (id, name, stock, price) => {
   const datas = await getData_db();
-
   id = parseInt(id);
 
   for (let data of datas) {
@@ -55,6 +54,32 @@ const putData_db = async (id, name, stock, price) => {
   return false;
 };
 
-putData_db(12);
+const deleteData_db = async (id) => {
+  const datas = await getData_db();
+  id = parseInt(id);
 
-module.exports = { getData_db, postData_db, putData_db };
+  for (let data of datas) {
+    if (data.id === id) {
+      const newData = datas.filter((data) => data.id !== id);
+      newData.forEach((data, index) => (data.id = index + 1));
+
+      writeFileSync("./data/products.json", JSON.stringify(newData), "utf-8");
+
+      return data;
+    }
+  }
+
+  // for (let i = 0; i < datas.length; i++) {
+  //   if (datas[i].id === id) {
+  //     const deletedData = datas[i];
+
+  //     // datas.forEach((data, index) => )
+
+  //     return deletedData;
+  //   }
+  // }
+
+  return false;
+};
+
+module.exports = { getData_db, postData_db, putData_db, deleteData_db };
