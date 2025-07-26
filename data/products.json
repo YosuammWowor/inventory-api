@@ -1,12 +1,1 @@
-[
-  { "id": 1, "name": "Pencil", "stock": 60, "price": 2000 },
-  { "id": 2, "name": "Instant Noodle", "stock": 20, "price": 2500 },
-  { "id": 3, "name": "Spotify Subscriptions", "stock": 1, "price": 10000 },
-  { "id": 4, "name": "Laptop", "stock": 2, "price": 220000 },
-  {
-    "id": 5,
-    "name": "Snack",
-    "stock": 50,
-    "price": 5000
-  }
-]
+[{"id":1,"name":"Pencil","stock":60,"price":2000},{"id":2,"name":"Instant Noodle","stock":20,"price":2500},{"id":3,"name":"Spotify Subscriptions","stock":1,"price":10000},{"id":4,"name":"Laptop","stock":2,"price":220000},{"id":5,"name":"PC All-in-One","stock":3,"price":35000}]

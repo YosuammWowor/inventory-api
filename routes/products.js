@@ -6,6 +6,7 @@ const {
   getData,
   getDataById,
   postData,
+  putData,
 } = require("../controllers/productsController");
 
 route.get("/", (req, res) => {
@@ -22,6 +23,10 @@ route.get("/products/:id", (req, res) => {
 
 route.post("/products", (req, res) => {
   postData(req, res);
+});
+
+route.put("/products/:id", (req, res) => {
+  putData(req, res);
 });
 
 module.exports = route;

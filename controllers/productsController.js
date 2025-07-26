@@ -1,4 +1,4 @@
-const { getData_db, postData_db } = require("../model/product");
+const { getData_db, postData_db, putData_db } = require("../model/product");
 
 const setHomepage = (req, res) => {
   res.send("<h1>Homepage - Welcome Adventure's 🌄</h1>");
@@ -36,4 +36,18 @@ const postData = async (req, res) => {
   });
 };
 
-module.exports = { setHomepage, getData, getDataById, postData };
+const putData = async (req, res) => {
+  const { name, stock, price } = req.body;
+
+  const message_db = await putData_db(req.params.id, name, stock, price);
+
+  res.json({
+    message: message_db
+      ? "Products data updated successfully!🎁"
+      : "Sorry, products data updated failed!😔",
+    id: req.params.id,
+    data: { name, stock, price },
+  });
+};
+
+module.exports = { setHomepage, getData, getDataById, postData, putData };
