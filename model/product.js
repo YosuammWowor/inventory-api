@@ -1,4 +1,4 @@
-const { readFileSync, readFile, writeFileSync } = require("fs");
+const { readFileSync, writeFileSync } = require("fs");
 
 const getData_db = async () => {
   const data = await readFileSync("./data/products.json", "utf-8");

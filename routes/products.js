@@ -5,6 +5,7 @@ const {
   setHomepage,
   getData,
   getDataById,
+  getData_err,
   postData,
   putData,
   deleteData,
@@ -21,6 +22,10 @@ route.get("/products", (req, res) => {
 
 route.get("/products/:id", (req, res) => {
   getDataById(req, res);
+});
+
+route.get("/*splat", (req, res) => {
+  getData_err(req, res);
 });
 
 route.post("/products", (req, res) => {

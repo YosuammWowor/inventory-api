@@ -31,6 +31,10 @@ const getDataById = async (req, res) => {
   });
 };
 
+const getData_err = (req, res) => {
+  res.json({ message: "Something went wrong, please check again ur URL..." });
+};
+
 const postData = async (req, res) => {
   const { name, stock, price } = req.body;
 
@@ -94,6 +98,7 @@ module.exports = {
   setHomepage,
   getData,
   getDataById,
+  getData_err,
   postData,
   putData,
   deleteData,
