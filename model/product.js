@@ -9,21 +9,19 @@ const postData_db = async (name, stock, price) => {
   const getData = await getData_db();
   const id = getData.length + 1;
 
-  let newData = `,{
-    "id": ${id},
-    "name": "${name}",
-    "stock": ${stock},
-    "price": ${price}
-  }
-]`;
+  let newData = {
+    id: id,
+    name: name,
+    stock: stock,
+    price: price,
+  };
 
-  newData = JSON.stringify(getData).replace("]", newData);
+  getData.push(newData);
 
-  writeFileSync("./data/products.json", newData, "utf-8");
+  writeFileSync("./data/products.json", JSON.stringify(getData), "utf-8");
 
   return "Items Successfully Added😆";
 };
-
 const putData_db = async (id, name, stock, price) => {
   const datas = await getData_db();
   id = parseInt(id);
