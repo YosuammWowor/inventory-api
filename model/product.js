@@ -20,7 +20,7 @@ const postData_db = async (name, stock, price) => {
 
   writeFileSync("./data/products.json", JSON.stringify(getData), "utf-8");
 
-  return "Items Successfully Added😆";
+  return newData;
 };
 const putData_db = async (id, name, stock, price) => {
   const datas = await getData_db();

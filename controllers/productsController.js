@@ -35,12 +35,27 @@ const getData_err = (req, res) => {
 
 const postData = async (req, res) => {
   const { name, stock, price } = req.body;
+  let isGood = true;
+
+  if (
+    typeof name !== "string" ||
+    !Number.isInteger(stock) ||
+    !Number.isInteger(price)
+  ) {
+    isGood = false;
+  }
 
   const message_db = await postData_db(name, stock, price);
 
   res.json({
-    message: message_db ? message_db : "Items Failed Added😔",
-    items: { name, stock, price },
+    message:
+      message_db && isGood
+        ? "Items Successfully Added😆"
+        : "Items Failed Added😔",
+    data:
+      message_db && isGood
+        ? message_db
+        : "Something went wrong, please check your input...",
   });
 };
 
