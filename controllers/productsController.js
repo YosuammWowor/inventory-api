@@ -18,17 +18,15 @@ const getData = async (req, res) => {
 const getDataById = async (req, res) => {
   const { id } = req.params;
 
-  // console.log(typeof parseInt(id));
-
   const datas = await getData_db();
-  for (let data of datas) {
-    if (data.id === parseInt(id)) return res.json(data);
+
+  if (id > datas.length || id <= 0 || isNaN(id)) {
+    res.json({
+      message: "No Items ID available...",
+    });
   }
 
-  // If no items get
-  res.json({
-    message: "No Items available",
-  });
+  res.json(datas[parseInt(id) - 1]);
 };
 
 const getData_err = (req, res) => {
