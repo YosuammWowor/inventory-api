@@ -21,7 +21,7 @@ const getDataById = async (req, res) => {
   const datas = await getData_db();
 
   if (id > datas.length || id <= 0 || isNaN(id)) {
-    res.json({
+    return res.json({
       message: "No Items ID available...",
     });
   }
@@ -29,11 +29,10 @@ const getDataById = async (req, res) => {
   res.json(datas[parseInt(id) - 1]);
 };
 
-const getData_err = (req, res) => {
-  res.json({ message: "Something went wrong, please check again ur URL..." });
-};
-
 const postData = async (req, res) => {
+  if (req.body === undefined)
+    return res.json({ message: "Please, follow the instructions." });
+
   const { name, stock, price } = req.body;
   let isGood = true;
 
@@ -60,16 +59,45 @@ const postData = async (req, res) => {
 };
 
 const putData = async (req, res) => {
+  const { id } = req.params;
+  let isGood = true;
+
+  const datas = await getData_db();
+
+  if (id > datas.length || id <= 0 || isNaN(id)) {
+    return res.json({
+      message: "No Items ID available...",
+    });
+  }
+
+  if (req.body === undefined)
+    return res.json({ message: "Please, follow the instructions." });
+
   const { name, stock, price } = req.body;
 
-  const message_db = await putData_db(req.params.id, name, stock, price);
+  if (
+    typeof name !== "string" ||
+    !Number.isInteger(stock) ||
+    !Number.isInteger(price)
+  ) {
+    isGood = false;
+  }
+
+  const message_db = await putData_db(
+    parseInt(req.params.id),
+    name,
+    stock,
+    price
+  );
 
   res.json({
-    message: message_db
-      ? "Products data updated successfully!🎁"
-      : "Sorry, products data updated failed!😔",
-    id: req.params.id,
-    data: { name, stock, price },
+    message:
+      message_db && isGood
+        ? "Products data updated successfully!🎁"
+        : "Sorry, products data updated failed!😔",
+    data: message_db
+      ? message_db
+      : "Something went wrong, please check your input...",
   });
 };
 
@@ -107,13 +135,17 @@ const patchData = async (req, res) => {
   });
 };
 
+const errURL = (res) => {
+  res.json({ message: "Something went wrong, please check again ur URL..." });
+};
+
 module.exports = {
   setHomepage,
   getData,
   getDataById,
-  getData_err,
   postData,
   putData,
   deleteData,
   patchData,
+  errURL,
 };

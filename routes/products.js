@@ -5,11 +5,11 @@ const {
   setHomepage,
   getData,
   getDataById,
-  getData_err,
   postData,
   putData,
   deleteData,
   patchData,
+  errURL,
 } = require("../controllers/productsController");
 
 route.get("/", (req, res) => {
@@ -25,15 +25,23 @@ route.get("/products/:id", (req, res) => {
 });
 
 route.get("/*splat", (req, res) => {
-  getData_err(req, res);
+  errURL(res);
 });
 
 route.post("/products", (req, res) => {
   postData(req, res);
 });
 
+route.post("/*splat", (req, res) => {
+  errURL(res);
+});
+
 route.put("/products/:id", (req, res) => {
   putData(req, res);
+});
+
+route.put("/*splat", (req, res) => {
+  errURL(res);
 });
 
 route.delete("/products/:id", (req, res) => {

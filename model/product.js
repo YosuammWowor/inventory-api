@@ -22,9 +22,9 @@ const postData_db = async (name, stock, price) => {
 
   return newData;
 };
+
 const putData_db = async (id, name, stock, price) => {
   const datas = await getData_db();
-  id = parseInt(id);
 
   for (let data of datas) {
     if (id === data.id) {
@@ -44,7 +44,7 @@ const putData_db = async (id, name, stock, price) => {
 
       writeFileSync("./data/products.json", JSON.stringify(datas), "utf-8");
 
-      return true;
+      return newData;
     }
   }
 
