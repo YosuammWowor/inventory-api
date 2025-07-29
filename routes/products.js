@@ -48,6 +48,10 @@ route.delete("/products/:id", (req, res) => {
   deleteData(req, res);
 });
 
+route.delete("/*splat", (req, res) => {
+  errURL(res);
+});
+
 route.patch("/products/:id/stock", (req, res) => {
   patchData(req, res);
 });

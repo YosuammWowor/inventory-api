@@ -104,6 +104,12 @@ const putData = async (req, res) => {
 const deleteData = async (req, res) => {
   const { id } = req.params;
 
+  const datas = await getData_db();
+
+  if (id <= 0 || id > datas.length || isNaN(id)) {
+    return res.json({ message: "No Items ID available..." });
+  }
+
   const message_db = await deleteData_db(id);
 
   res.json({
