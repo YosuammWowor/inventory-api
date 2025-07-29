@@ -121,6 +121,9 @@ const deleteData = async (req, res) => {
 };
 
 const patchData = async (req, res) => {
+  if (req.body === undefined)
+    return res.json({ message: "Please, follow the instructions." });
+
   const { operation, amount } = req.body;
 
   const checkOperation =

@@ -56,4 +56,8 @@ route.patch("/products/:id/stock", (req, res) => {
   patchData(req, res);
 });
 
+route.patch("/*splat", (req, res) => {
+  errURL(res);
+});
+
 module.exports = route;
